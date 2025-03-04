@@ -12,7 +12,6 @@ public class BronzeBankAccountTest extends BankAccountTest {
     public static final int WITHDRAW_FEE = 1;
     private BronzeBankAccount account;
 
-
     @BeforeEach
     void init(){
         super.init();

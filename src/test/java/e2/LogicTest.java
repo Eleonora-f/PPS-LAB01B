@@ -12,4 +12,15 @@ public class LogicTest {
     // int result = Logic.someMethod(5, 10);
     // assertEquals(expectedResult, result);
   }
+
+  @Test
+  void TestKnightMove() {
+
+    assert(true);
+  }
+
+  @Test
+  void name() {
+  }
+
 }
