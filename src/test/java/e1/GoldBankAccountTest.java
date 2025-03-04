@@ -3,26 +3,16 @@ package e1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class GoldBankAccountTest {
+public class GoldBankAccountTest extends BankAccountTest{
 
     private GoldBankAccount account;
 
     @BeforeEach
     void init(){
-        this.account = new GoldBankAccount(new CoreBankAccount());
-    }
-
-    @Test
-    public void testInitiallyEmpty() {
-        assertEquals(0, this.account.getBalance());
-    }
-
-    @Test
-    public void testCanDeposit() {
-        this.account.deposit(1000);
-        assertEquals(1000, this.account.getBalance());
+        super.init();
+        this.account = new GoldBankAccount(bankAccount);
     }
 
     @Test
@@ -37,5 +27,11 @@ public class GoldBankAccountTest {
         this.account.deposit(1000);
         this.account.withdraw(1500);
         assertEquals(-500, this.account.getBalance());
+    }
+
+    @Test
+    public void testCannotWithdrawMoreThanOverdraft() {
+        this.account.deposit(1000);
+        assertThrows(IllegalStateException.class, () -> this.account.withdraw(2000));
     }
 }

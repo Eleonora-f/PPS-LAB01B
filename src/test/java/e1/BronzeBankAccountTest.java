@@ -6,45 +6,31 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BronzeBankAccountTest {
+public class BronzeBankAccountTest extends BankAccountTest {
 
+    public static final int WITHDRAWAL_FEE_THRESHOLD = 100;
+    public static final int WITHDRAW_FEE = 1;
     private BronzeBankAccount account;
+
 
     @BeforeEach
     void init(){
-        this.account = new BronzeBankAccount(new CoreBankAccount());
+        super.init();
+        this.account = new BronzeBankAccount(bankAccount);
     }
 
     @Test
-    public void testInitiallyEmpty() {
-        assertEquals(0, this.account.getBalance());
-    }
-
-    @Test
-    public void testCanDeposit() {
+    public void testCanWithdrawWithFee(){
         this.account.deposit(1000);
-        assertEquals(1000, this.account.getBalance());
-    }
-
-    @Test
-    public void testCanWithdraw() {
-        this.account.deposit(1000);
-        this.account.withdraw(200);
-        assertEquals(799, this.account.getBalance());
-    }
-
-    @Test
-    public void testCanWithdrawWith(){
-        this.account.deposit(1000);
-        this.account.withdraw(100);
+        this.account.withdraw(WITHDRAWAL_FEE_THRESHOLD+WITHDRAW_FEE);
         assertEquals(899, this.account.getBalance());
     }
 
     @Test
-    public void testCanWithdrawWithout(){
+    public void testCanWithdrawWithoutFee(){
         this.account.deposit(1000);
-        this.account.withdraw(100);
-        assertEquals(900, this.account.getBalance());
+        this.account.withdraw(WITHDRAWAL_FEE_THRESHOLD-WITHDRAW_FEE);
+        assertEquals(901, this.account.getBalance());
     }
 
     @Test
