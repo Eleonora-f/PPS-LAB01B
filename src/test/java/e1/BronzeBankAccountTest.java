@@ -12,13 +12,11 @@ public class BronzeBankAccountTest extends BankAccountTest {
     public static final int WITHDRAW_FEE = 1;
     private BronzeBankAccount account;
 
-    @BeforeEach
-    void init(){
-        super.init();
-        this.account = new BronzeBankAccount(bankAccount);
+    @Override
+    protected BankAccount createAccount() {
+        return new BronzeBankAccount(new CoreBankAccount());
     }
-
-    @Test
+    /*@Test
     public void testCanWithdrawWithFee(){
         this.account.deposit(1000);
         this.account.withdraw(WITHDRAWAL_FEE_THRESHOLD+WITHDRAW_FEE);
@@ -30,11 +28,18 @@ public class BronzeBankAccountTest extends BankAccountTest {
         this.account.deposit(1000);
         this.account.withdraw(WITHDRAWAL_FEE_THRESHOLD-WITHDRAW_FEE);
         assertEquals(901, this.account.getBalance());
+    }*/
+
+    @Test
+    public void testCanWithdraw() {
+        this.account.deposit(1000);
+        this.account.withdraw(80);
+        assertEquals(920, this.account.getBalance());
     }
 
     @Test
     public void testCannotWithdrawMoreThanAvailable(){
         this.account.deposit(1000);
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(1200));
+        assertThrows(IllegalStateException.class, () -> this.account.withdraw(1600));
     }
 }

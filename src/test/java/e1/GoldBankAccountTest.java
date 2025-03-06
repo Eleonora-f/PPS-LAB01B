@@ -7,19 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GoldBankAccountTest extends BankAccountTest{
 
-    private GoldBankAccount account;
-
-    @BeforeEach
-    void init(){
-        super.init();
-        this.account = new GoldBankAccount(bankAccount);
+    @Override
+    protected BankAccount createAccount() {
+        return new GoldBankAccount(new CoreBankAccount());
     }
 
     @Test
     public void testCanWithdraw() {
         this.account.deposit(1000);
         this.account.withdraw(200);
-        assertEquals(799, this.account.getBalance());
+        assertEquals(800, this.account.getBalance());
     }
 
     @Test

@@ -5,23 +5,23 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BankAccountTest {
-    protected BankAccount bankAccount;
+public abstract class BankAccountTest {
+    protected BankAccount account;
+    protected abstract BankAccount createAccount();
 
     @BeforeEach
     void init(){
-        this.bankAccount = new CoreBankAccount();
+        this.account = createAccount();
     }
 
     @Test
     public void testInitiallyEmpty() {
-        assertEquals(0, this.bankAccount.getBalance());
+        assertEquals(0, this.account.getBalance());
     }
 
     @Test
     public void testCanDeposit() {
-        this.bankAccount.deposit(1000);
-        assertEquals(1000, this.bankAccount.getBalance());
+        this.account.deposit(1000);
+        assertEquals(1000, this.account.getBalance());
     }
-
 }

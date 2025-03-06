@@ -6,12 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SilverBankAccountTest extends BankAccountTest {
 
-    private SilverBankAccount account;
-
-    @BeforeEach
-    void init() {
-        super.init();
-        this.account = new SilverBankAccount(bankAccount);
+    @Override
+    protected BankAccount createAccount() {
+        return new SilverBankAccount(new CoreBankAccount());
     }
 
     @Test
