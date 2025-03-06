@@ -2,10 +2,10 @@ package e1;
 
 public interface BankAccount {
 
-    public int getBalance();
+    int getBalance();
 
-    public void deposit(int amount) ;
+    void deposit(int amount) ;
 
-    public void withdraw(int amount);
+    void withdraw(int amount);
 
 }
